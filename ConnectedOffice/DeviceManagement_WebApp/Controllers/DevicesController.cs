@@ -7,37 +7,41 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
+using DeviceManagement_WebApp.Repository;
 
 namespace DeviceManagement_WebApp.Controllers
 {
     public class DevicesController : Controller
     {
         private readonly ConnectedOfficeContext _context;
+        private readonly IDeviceRepository _devicesRepository;
 
-        public DevicesController(ConnectedOfficeContext context)
+
+        public DevicesController(IDeviceRepository deviceRepositiory)
         {
-            _context = context;
+            _devicesRepository = deviceRepositiory;
         }
 
         // GET: Devices
         public async Task<IActionResult> Index()
         {
-            var connectedOfficeContext = _context.Device.Include(d => d.Category).Include(d => d.Zone);
-            return View(await connectedOfficeContext.ToListAsync());
+            
+            var connectedOfficeContext = _devicesRepository.GetAll(); ;
+            return View(_devicesRepository.GetAll());
         }
 
         // GET: Devices/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+       public async Task<IActionResult> Details(Guid? id)
         {
+
+          
             if (id == null)
             {
                 return NotFound();
             }
 
-            var device = await _context.Device
-                .Include(d => d.Category)
-                .Include(d => d.Zone)
-                .FirstOrDefaultAsync(m => m.DeviceId == id);
+            var device = _devicesRepository.GetById(id);
+
             if (device == null)
             {
                 return NotFound();
@@ -49,6 +53,7 @@ namespace DeviceManagement_WebApp.Controllers
         // GET: Devices/Create
         public IActionResult Create()
         {
+            
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
             ViewData["ZoneId"] = new SelectList(_context.Zone, "ZoneId", "ZoneName");
             return View();
