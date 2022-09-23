@@ -40,6 +40,8 @@ namespace DeviceManagement_WebApp
             services.AddRazorPages();
             services.AddTransient(typeof(IGenericRepository<>) , typeof(GenericRepository<>));
             services.AddTransient<IDeviceRepository, DevicesRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+          //  services.AddTransient<IZoneRepository, ZoneRepository>();
 
         }
 

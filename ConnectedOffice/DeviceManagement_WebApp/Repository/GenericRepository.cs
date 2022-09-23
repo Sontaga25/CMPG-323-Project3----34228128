@@ -4,6 +4,7 @@ using System;
 using System.Data;
 using DeviceManagement_WebApp.Data;
 using System.Linq;
+using DeviceManagement_WebApp.Repository;
 
 namespace DeviceManagement_WebApp.Repository
 {
@@ -24,6 +25,23 @@ namespace DeviceManagement_WebApp.Repository
         {
             _context.Set<T>().AddRange(entities);
         }
+
+        public void DeleteConfirmed(Guid id)
+        {
+            var entity = GetById(id);
+            _context.Remove(entity);
+            _context.SaveChanges();
+        }
+
+        public bool Object_Exists(Guid id)
+        {
+            var Search_object = _context.Zone.Any(e => e.ZoneId == id); 
+            if (Search_object != null)
+                return true;
+            else
+                return false;
+        }
+
         public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
         {
             return _context.Set<T>().Where(expression);
@@ -51,5 +69,7 @@ namespace DeviceManagement_WebApp.Repository
             _context.SaveChanges();
 
         }
+
+        
     }
 }
