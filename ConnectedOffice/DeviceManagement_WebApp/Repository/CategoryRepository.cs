@@ -10,13 +10,7 @@ namespace DeviceManagement_WebApp.Repository
     {
         public CategoryRepository(ConnectedOfficeContext context) : base(context)
         {
-            //public async Task<> DeleteConfirmed(Guid id)
-            //{
-            //    var category = await _context.Category.FindAsync(id);
-            //    _context.Category.Remove(category);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
+          
 
         }
      

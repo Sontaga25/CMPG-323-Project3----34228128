@@ -9,9 +9,8 @@ namespace DeviceManagement_WebApp.Repository
 
     public interface IDeviceRepository : IGenericRepository<Device>
     {
-        Device GetMostRecentService();
-        bool DeviceExists(Guid id);
-        Task<Device> DeleteConfirmed(Guid id);
+     
+        
 
     }
 
