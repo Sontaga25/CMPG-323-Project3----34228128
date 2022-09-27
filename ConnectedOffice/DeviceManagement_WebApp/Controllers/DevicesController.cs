@@ -59,7 +59,7 @@ namespace DeviceManagement_WebApp.Controllers
         {
 
             
-            ViewData["CategoryId"] = new SelectList(_devicesRepository.GetSet<Category>(), "CategoryId", "CategoryName");
+           ViewData["CategoryId"] = new SelectList(_devicesRepository.GetSet<Category>(), "CategoryId", "CategoryName");
            ViewData["ZoneId"] = new SelectList(_devicesRepository.GetSet<Zone>(), "ZoneId", "ZoneName");
             return View();
         }
