@@ -1,7 +1,7 @@
 Below ill be explaing the basic functionality of the web app
  
  When you first login you'll see the page below. From here you'll have to register yourself as a user 
- <img src = "Pictures/BeforeLogin.PNG"></img> 
+ <img src = "ConnectedOffice\DeviceManagement_WebApp\Pictures/BeforeLogin.PNG"></img> 
   If youre a first time user then simply register yourself and or you can login 
 <img src = "Pictures/Register.PNG"></img> 
 
