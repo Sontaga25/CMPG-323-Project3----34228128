@@ -26,12 +26,14 @@ namespace DeviceManagement_WebApp.Repository
             _context.Set<T>().AddRange(entities);
         }
 
+        //This method removes the a specific intity class with the id parsed after the delete is confirmed 
         public void DeleteConfirmed(Guid id)
         {
             var entity = GetById(id);
             _context.Remove(entity);
             _context.SaveChanges();
         }
+    // This method checks if an entity instance exists, removes the reptition of code in all the controllers
 
         public bool Object_Exists(Guid id )
         {
@@ -69,7 +71,7 @@ namespace DeviceManagement_WebApp.Repository
             _context.SaveChanges();
 
         }
-
+        //This method returns the dataset of the specified class 'Z' that is parsed. This method is used in the controllers to generate views
         public IEnumerable<Z> GetSet<Z>() where Z : class
         {
             return _context.Set<Z>().ToList();
