@@ -15,21 +15,21 @@ namespace DeviceManagement_WebApp.Controllers
     {
         private readonly ConnectedOfficeContext _context;
         private readonly IDeviceRepository _devicesRepository;
-        private DevicesRepository _d_repo;
+        
 
 
-        public DevicesController(ConnectedOfficeContext context , IDeviceRepository deviceRepositiory)
+        public DevicesController(IDeviceRepository deviceRepositiory)
         {
             _devicesRepository = deviceRepositiory;
-            _context = context;
-            
+       
         }
 
         // GET: Devices
         public async Task<IActionResult> Index()
         {
             
-            var connectedOfficeContext = _devicesRepository.GetAll(); ;
+           var connectedOfficeContext = _devicesRepository.GetAll(); ;
+            
             return View(_devicesRepository.GetAll());
         }
 
@@ -57,10 +57,10 @@ namespace DeviceManagement_WebApp.Controllers
         // GET: Devices/Create
         public IActionResult Create()
         {
+
             
-            
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
-            ViewData["ZoneId"] = new SelectList(_context.Zone, "ZoneId", "ZoneName");
+            ViewData["CategoryId"] = new SelectList(_devicesRepository.GetSet<Category>(), "CategoryId", "CategoryName");
+           ViewData["ZoneId"] = new SelectList(_devicesRepository.GetSet<Zone>(), "ZoneId", "ZoneName");
             return View();
         }
 
@@ -95,9 +95,9 @@ namespace DeviceManagement_WebApp.Controllers
             }
 
             
-            //ViewData["CategoryId"] = new SelectList(_devicesRepository., "CategoryId", "CategoryName", device.CategoryId);
-            //ViewData["ZoneId"] = new SelectList(_context.Zone, "ZoneId", "ZoneName", device.ZoneId);
-            return View(device);
+            ViewData["CategoryId"] = new SelectList(_devicesRepository.GetSet<Category>(), "CategoryId", "CategoryName", device.CategoryId);
+            ViewData["ZoneId"] = new SelectList(_devicesRepository.GetSet<Zone>(), "ZoneId", "ZoneName", device.ZoneId);
+            return View();
         }
 
         // POST: Devices/Edit/5
@@ -140,10 +140,7 @@ namespace DeviceManagement_WebApp.Controllers
 
             var device = _devicesRepository.GetById(id);
             _devicesRepository.Remove(device);
-            //var device = await _context.Device
-            //    .Include(d => d.Category)
-            //    .Include(d => d.Zone)
-            //    .FirstOrDefaultAsync(m => m.DeviceId == id);
+            
             if (device == null)
             {
                 return NotFound();
@@ -157,17 +154,13 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            //var device = await _context.Device.FindAsync(id);
-            //_context.Device.Remove(device);
-            //await _context.SaveChangesAsync();
-
-            await _devicesRepository.DeleteConfirmed(id);
+            _devicesRepository.DeleteConfirmed(id);
             return  RedirectToAction(nameof(Index));
         }
 
         private bool DeviceExists(Guid id)
         {
-            return _devicesRepository.DeviceExists(id);
+            return _devicesRepository.Object_Exists(id);
         }
     }
 }

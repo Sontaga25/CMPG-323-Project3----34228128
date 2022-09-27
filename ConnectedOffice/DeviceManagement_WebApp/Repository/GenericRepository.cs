@@ -33,13 +33,13 @@ namespace DeviceManagement_WebApp.Repository
             _context.SaveChanges();
         }
 
-        public bool Object_Exists(Guid id)
+        public bool Object_Exists(Guid id )
         {
-            var Search_object = _context.Zone.Any(e => e.ZoneId == id); 
-            if (Search_object != null)
+            var search_object = GetById(id);
+            if (search_object != null)
                 return true;
-            else
-                return false;
+           else
+              return false;
         }
 
         public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
@@ -69,6 +69,12 @@ namespace DeviceManagement_WebApp.Repository
             _context.SaveChanges();
 
         }
+
+        public IEnumerable<Z> GetSet<Z>() where Z : class
+        {
+            return _context.Set<Z>().ToList();
+
+        }    
 
         
     }

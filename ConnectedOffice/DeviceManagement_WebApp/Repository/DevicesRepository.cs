@@ -11,6 +11,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+
 namespace DeviceManagement_WebApp.Repository
 {
 
@@ -20,9 +21,13 @@ namespace DeviceManagement_WebApp.Repository
         protected readonly ConnectedOfficeContext _context;
         public DevicesRepository(ConnectedOfficeContext connectedOfficeContext) : base(connectedOfficeContext)
         {
+           _context = connectedOfficeContext;
+
 
         }
-     
+        
+
+
 
 
     }

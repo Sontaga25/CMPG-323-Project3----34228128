@@ -17,5 +17,6 @@ namespace DeviceManagement_WebApp.Repository
         public void Update(T entity);
         public void DeleteConfirmed(Guid id);
         bool Object_Exists(Guid id);
+        IEnumerable<Z> GetSet<Z>() where Z : class;
     }
 }
